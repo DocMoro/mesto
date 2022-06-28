@@ -4,4 +4,10 @@
   justify-content: center;
   border: 1px solid #FFF;
   background-color: #000;
+  transition: opacity .5s ease-in-out;
+}
+
+.button:hover {
+  cursor: pointer;
+  opacity: .6;
 }
