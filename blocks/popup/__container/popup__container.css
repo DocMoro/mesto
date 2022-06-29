@@ -1,7 +1,9 @@
 .popup__container {
+  position: fixed;
+  top: calc(50vh - 165px);
+  left: calc(50vw - 215px);
   width: 430px;
   height: 330px;
-  margin: calc(50vh - 165px) auto 0;
   border-radius: 10px;
   background-color: #FFF;
 }
