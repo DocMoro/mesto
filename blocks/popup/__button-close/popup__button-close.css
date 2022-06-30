@@ -6,6 +6,8 @@
   border: none;
   width: 32px;
   height: 32px;
+  background-image: url(../../../images/close-Icon.svg);
+  background-size: contain;
 }
 
 @media screen and (max-width: 526px) {
