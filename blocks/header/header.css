@@ -1,6 +1,5 @@
 .header {
   width: 880px;
-  height: 119px;
   margin: 0 auto;
   border-bottom: 1px solid #545454;
 }
@@ -8,6 +7,5 @@
 @media screen and (max-width: 918px) {
   .header {
     width: 100%;
-    height: 84px;
   }
 }
