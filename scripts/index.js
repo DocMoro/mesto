@@ -6,6 +6,8 @@ let textName = document.querySelector(".profile__name");
 let textAboutMe = document.querySelector(".profile__about-me");
 
 function openPopup () {
+  input[0].value = textName.textContent;
+  input[1].value = textAboutMe.textContent;
   popup.classList.add("popup_active");
 }
 
