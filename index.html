@@ -34,13 +34,24 @@
   <footer class="footer page__section ">
     <p class="footer__copyright">© 2022 Mesto Russia</p>
   </footer>
-  <div class="popup">
+  <div class="popup page__edit-popup">
     <div class="popup__container">
       <button type="button" class="popup__button-close button"></button>
-      <form name="form" class="popup__form">
+      <form name="edit-form" class="popup__form">
         <h2 class="popup__title">Редактировать профиль</h2>
         <input name="name" type="text" class="popup__input popup__input_field_name" value="Жак-Ив Кусто">
         <input name="aboutme" type="text" class="popup__input popup__input_field_about-me" value="Исследователь океана">
+        <button type="submit" class="popup__button-save button">Сохранить</button>
+      </form>
+    </div>
+  </div>
+  <div class="popup page__add-popup">
+    <div class="popup__container">
+      <button type="button" class="popup__button-close button"></button>
+      <form name="add-form" class="popup__form">
+        <h2 class="popup__title">Новое место</h2>
+        <input name="card-name" type="text" class="popup__input popup__input_field_card-name" placeholder="Название">
+        <input name="card-link" type="text" class="popup__input popup__input_field_card-link" placeholder="Ссылка на картинку">
         <button type="submit" class="popup__button-save button">Сохранить</button>
       </form>
     </div>
