@@ -50,6 +50,7 @@ function createCard(cardDate) {
   newCard.querySelector('.card__title').textContent = cardDate.name;
   newCard.querySelector('.card__image').src = cardDate.link;
   newCard.querySelector('.card__button').addEventListener('click', likeCard);
+  newCard.querySelector('.card__delete').addEventListener('click', () => {newCard.remove()});
   cardsList.prepend(newCard);
 }
 
