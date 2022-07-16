@@ -49,7 +49,16 @@ function createCard(cardDate) {
   const newCard = document.querySelector('.template-card').content.querySelector('.card').cloneNode(true);
   newCard.querySelector('.card__title').textContent = cardDate.name;
   newCard.querySelector('.card__image').src = cardDate.link;
+  newCard.querySelector('.card__button').addEventListener('click', likeCard);
   cardsList.prepend(newCard);
+}
+
+function likeCard (evt) {
+  if (evt.target.style.backgroundImage === 'url("./images/active-heart.svg")') {
+    evt.target.style.backgroundImage = 'url(./images/heart.svg)';
+  } else {
+    evt.target.style.backgroundImage = 'url(./images/active-heart.svg)';
+  }
 }
 
 function editOpenPopup () {
