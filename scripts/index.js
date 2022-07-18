@@ -20,24 +20,24 @@ let cardCloseButton = cardPopup.querySelector('.popup__button-close');
 function createCardList() {
   const cards = [
     {
-      name: 'Карачаево-Черкесия',
-      link: './images/Карачаевск.jpg'
+      name: 'Красноярск',
+      link: './images/krasnoyarsk.jpg'
     },
     {
-      name: 'Домбай',
-      link: './images/Домбай.jpg'
+      name: 'Сочи',
+      link: './images/sochi.jpg'
     },
     {
-      name: 'Гора Эльбрус',
-      link: './images/ГораЭльбрус.jpg'
+      name: 'Нижний Новгород',
+      link: './images/nizhny_novgorod.jpg'
     },
     {
-      name: 'Домбай',
-      link: './images/Домбай.jpg'
+      name: 'Камчатка',
+      link: './images/kamchatka.jpg'
     },
     {
-      name: 'Гора Эльбрус',
-      link: './images/ГораЭльбрус.jpg'
+      name: 'Москва',
+      link: './images/moscow.jpg'
     },
     {
       name: 'Санкт-Петербург',
