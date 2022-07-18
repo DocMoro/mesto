@@ -13,6 +13,8 @@ let addOpenButton = document.querySelector('.profile__add-button');
 let addCloseButton = addPopup.querySelector('.popup__button-close');
 let addInputName = addPopupForm.querySelector('.popup__input_field_card-name');
 let addInputLink = addPopupForm.querySelector('.popup__input_field_card-link');
+let cardPopup = document.querySelector('.page__card-popup');
+let cardCloseButton = cardPopup.querySelector('.popup__button-close');
 
 
 function createCardList() {
@@ -38,8 +40,8 @@ function createCardList() {
       link: './images/ГораЭльбрус.jpg'
     },
     {
-      name: 'Карачаевск',
-      link: './images/Карачаевск.jpg'
+      name: 'Санкт-Петербург',
+      link: './images/st-petersburg.jpg'
     }
   ];
   cards.forEach(createCard);
@@ -51,6 +53,7 @@ function createCard(cardDate) {
   newCard.querySelector('.card__image').src = cardDate.link;
   newCard.querySelector('.card__button').addEventListener('click', likeCard);
   newCard.querySelector('.card__delete').addEventListener('click', () => {newCard.remove()});
+  newCard.querySelector('.card__image').addEventListener('click', cardOpenPopup);
   cardsList.prepend(newCard);
 }
 
@@ -96,6 +99,16 @@ function addSubmitPopup (evt) {
   evt.preventDefault();
 }
 
+function cardOpenPopup (evt) {
+  cardPopup.querySelector('.popap__card-image').src = evt.target.src;
+  cardPopup.querySelector('.popap__card-title').textContent = evt.target.parentNode.querySelector('.card__title').textContent;
+  cardPopup.classList.add('popup_active');
+}
+
+function cardClosePopup() {
+  cardPopup.classList.remove('popup_active');
+}
+
 createCardList();
 editOpenButton.addEventListener('click', editOpenPopup);
 editPopupForm.addEventListener('submit', editSubmitPopup);
@@ -103,3 +116,4 @@ editCloseButton.addEventListener('click', editClosePopup);
 addOpenButton.addEventListener('click', addOpenPopup);
 addPopupForm.addEventListener('submit', addSubmitPopup);
 addCloseButton.addEventListener('click', addClosePopup);
+cardCloseButton.addEventListener('click', cardClosePopup);
