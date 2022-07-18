@@ -100,8 +100,8 @@ function addSubmitPopup (evt) {
 }
 
 function cardOpenPopup (evt) {
-  cardPopup.querySelector('.popap__image').src = evt.target.src;
-  cardPopup.querySelector('.popap__subtitle').textContent = evt.target.parentNode.querySelector('.card__title').textContent;
+  cardPopup.querySelector('.popup__image').src = evt.target.src;
+  cardPopup.querySelector('.popup__subtitle').textContent = evt.target.parentNode.querySelector('.card__title').textContent;
   cardPopup.classList.add('popup_active');
 }
 
