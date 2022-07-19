@@ -8,6 +8,7 @@
   <meta name="keywords" content="Место, Россия, Жак-Ив, Кусто">
   <meta name="author" content="Андрей Морогин">
   <link rel="stylesheet" href="./pages/index.css">
+  <script defer src="./scripts/index.js"></script>
   <title>Место</title>
 </head>
 <body class="page">
@@ -20,11 +21,11 @@
         <img class="profile__avatar" src="./images/avatar.jpg" alt="Аватар пользователя">
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <button type="button" class="profile__edit-button button"></button>
+          <button type="button" class="profile__edit-button button" aria-label="Редактировать"></button>
           <p class="profile__about-me">Исследователь океана</p>
         </div>
       </div>
-      <button type="button" class="profile__add-button button"></button>
+      <button type="button" class="profile__add-button button" aria-label="Добавить"></button>
     </section>
     <section class="cards-section content__cards-section">
       <ul class="cards">
@@ -36,29 +37,29 @@
   </footer>
   <div class="popup page__edit-popup">
     <div class="popup__container">
-      <button type="button" class="popup__button-close button"></button>
+      <button type="button" class="popup__button-close button" aria-label="Закрыть"></button>
       <form name="edit-form" class="popup__form">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <input name="name" type="text" class="popup__input popup__input_field_name" value="Жак-Ив Кусто">
-        <input name="aboutme" type="text" class="popup__input popup__input_field_about-me" value="Исследователь океана">
+        <input name="name" type="text" class="popup__input popup__input_field_name" value="Жак-Ив Кусто" required>
+        <input name="aboutme" type="text" class="popup__input popup__input_field_about-me" value="Исследователь океана" required>
         <button type="submit" class="popup__button-save button">Сохранить</button>
       </form>
     </div>
   </div>
   <div class="popup page__add-popup">
     <div class="popup__container">
-      <button type="button" class="popup__button-close button"></button>
+      <button type="button" class="popup__button-close button" aria-label="Закрыть"></button>
       <form name="add-form" class="popup__form">
         <h2 class="popup__title">Новое место</h2>
-        <input name="card-name" type="text" class="popup__input popup__input_field_card-name" placeholder="Название">
-        <input name="card-link" type="text" class="popup__input popup__input_field_card-link" placeholder="Ссылка на картинку">
+        <input name="card-name" type="text" class="popup__input popup__input_field_card-name" placeholder="Название" required>
+        <input name="card-link" type="url" class="popup__input popup__input_field_card-link" placeholder="Ссылка на картинку" required>
         <button type="submit" class="popup__button-save button">Сохранить</button>
       </form>
     </div>
   </div>
   <div class="popup page__card-popup">
     <div class="popup__card-container">
-      <button type="button" class="popup__button-close button"></button>
+      <button type="button" class="popup__button-close button" aria-label="Закрыть"></button>
       <img class="popup__image" src="#" alt="Пейзаж России">
       <h2 class="popup__subtitle"></h2>
     </div>
@@ -66,13 +67,12 @@
   <template class="template-card">
     <li class="card">
       <img class="card__image" src="#" alt="Пейзаж России">
-      <button type="button" class="card__delete button"></button>
+      <button type="button" class="card__delete button" aria-label="Удалить"></button>
       <div class="card__group">
         <h2 class="card__title"></h2>
-        <button type="button" class="card__button button"></button>
+        <button type="button" class="card__button button" aria-label="Мне нравится"></button>
       </div>
     </li>
   </template>
-  <script src="./scripts/index.js"></script>
 </body>
 </html>
