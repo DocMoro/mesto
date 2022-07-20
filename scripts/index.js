@@ -48,19 +48,19 @@ function initialCardList() {
   dateCards.forEach(addCard);
 }
 
-function createCard(cardDate) {
+function createCard(dateCard) {
   const newCard = templeCard.cloneNode(true);
   const imageNewCard = newCard.querySelector('.card__image');
-  newCard.querySelector('.card__title').textContent = cardDate.name;
-  imageNewCard.src = cardDate.link;
+  newCard.querySelector('.card__title').textContent = dateCard.name;
+  imageNewCard.src = dateCard.link;
   newCard.querySelector('.card__button').addEventListener('click', (evt) => {evt.target.classList.toggle('card__button_like')});
   newCard.querySelector('.card__delete').addEventListener('click', () => {newCard.remove()});
   imageNewCard.addEventListener('click', openPopupCard);
   return newCard;
 }
 
-function addCard(cardDate) {
-  listCards.prepend(createCard(cardDate));
+function addCard(dateCard) {
+  listCards.prepend(createCard(dateCard));
 }
 
 function openPopup(popup) {
@@ -84,10 +84,6 @@ function submitPopupEdit (evt) {
   closePopup(popupEdit);
 }
 
-function openPopupAdd () {
-  popupAdd.classList.add('popup_active');
-}
-
 function submitPopupAdd (evt) {
   evt.preventDefault();
   addCard({
@@ -101,7 +97,7 @@ function openPopupCard (evt) {
   imageCard = evt.target;
   popupCard.querySelector('.popup__image').src = imageCard.src;
   popupCard.querySelector('.popup__subtitle').textContent = imageCard.closest('.card').querySelector('.card__title').textContent;
-  popupCard.classList.add('popup_active');
+  openPopup(popupCard);
 }
 
 initialCardList();
