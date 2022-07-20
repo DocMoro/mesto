@@ -48,11 +48,11 @@ function initialCardList() {
   dateCards.forEach(addCard);
 }
 
-function createCard(dateCard) {
+function createCard({name, link}) {
   const newCard = templeCard.cloneNode(true);
   const imageNewCard = newCard.querySelector('.card__image');
-  newCard.querySelector('.card__title').textContent = dateCard.name;
-  imageNewCard.src = dateCard.link;
+  newCard.querySelector('.card__title').textContent = name;
+  imageNewCard.src = link;
   newCard.querySelector('.card__button').addEventListener('click', (evt) => {evt.target.classList.toggle('card__button_like')});
   newCard.querySelector('.card__delete').addEventListener('click', () => {newCard.remove()});
   imageNewCard.addEventListener('click', openPopupCard);
