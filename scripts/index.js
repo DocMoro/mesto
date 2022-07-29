@@ -100,11 +100,26 @@ function openPopupCard (evt) {
   openPopup(popupCard);
 }
 
+function searchEventClickPopup(evt) {
+  if (evt.target === evt.currentTarget || evt.target.classList.contains('popup__button-close')) {
+    closePopup(evt.currentTarget);
+  }
+}
+
+function searchEventKeyPopup(evt, popup) {
+  if (evt.keyCode === 27) {
+    closePopup(popup);
+  }
+}
+
 initialCardList();
 buttonOpenPopupEdit.addEventListener('click', openPopupEdit);
 formPopupEdit.addEventListener('submit', submitPopupEdit);
-buttonClosePopupEdit.addEventListener('click', () => {closePopup(popupEdit)});
+popupEdit.addEventListener('click', (evt) => {searchEventClickPopup(evt)});
+document.addEventListener('keydown', (evt) => {searchEventKeyPopup(evt, popupEdit)});
 buttonOpenPopupAdd.addEventListener('click', () => {openPopup(popupAdd)});
 formPopupAdd.addEventListener('submit', submitPopupAdd);
-buttonClosePopupAdd.addEventListener('click', () => {closePopup(popupAdd)});
-buttonClosePopupCard.addEventListener('click', () => {closePopup(popupCard)});
+popupAdd.addEventListener('click', (evt) => {searchEventClickPopup(evt)});
+document.addEventListener('keydown', (evt) => {searchEventKeyPopup(evt, popupAdd)});
+popupCard.addEventListener('click', (evt) => {searchEventClickPopup(evt)});
+document.addEventListener('keydown', (evt) => {searchEventKeyPopup(evt, popupCard)});
