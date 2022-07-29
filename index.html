@@ -41,9 +41,11 @@
       <button type="button" class="popup__button-close button" aria-label="Закрыть"></button>
       <form name="edit-form" class="popup__form">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <input name="name" type="text" class="popup__input popup__input_field_name" value="Жак-Ив Кусто" required>
-        <input name="aboutme" type="text" class="popup__input popup__input_field_about-me" value="Исследователь океана" required>
-        <button type="submit" class="popup__button-save button">Сохранить</button>
+        <input name="name" type="text" class="popup__input popup__input_field_name" value="Жак-Ив Кусто" minlength="2" maxlength="40" required>
+        <span class="popup__input-error name-error"></span>
+        <input name="aboutme" type="text" class="popup__input popup__input_field_about-me" value="Исследователь океана" minlength="2" maxlength="200" required>
+        <span class="popup__input-error aboutme-error"></span>
+        <button type="submit" class="popup__button button">Сохранить</button>
       </form>
     </div>
   </div>
@@ -52,9 +54,11 @@
       <button type="button" class="popup__button-close button" aria-label="Закрыть"></button>
       <form name="add-form" class="popup__form">
         <h2 class="popup__title">Новое место</h2>
-        <input name="card-name" type="text" class="popup__input popup__input_field_card-name" placeholder="Название" required>
+        <input name="card-name" type="text" class="popup__input popup__input_field_card-name" placeholder="Название" minlength="2" maxlength="30" required>
+        <span class="popup__input-error card-name-error"></span>
         <input name="card-link" type="url" class="popup__input popup__input_field_card-link" placeholder="Ссылка на картинку" required>
-        <button type="submit" class="popup__button-save button">Сохранить</button>
+        <span class="popup__input-error card-link-error"></span>
+        <button type="submit" class="popup__button button">Сохранить</button>
       </form>
     </div>
   </div>
