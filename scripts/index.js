@@ -112,14 +112,20 @@ function searchEventKeyPopup(evt, popup) {
   }
 }
 
+function openPopupAdd {
+  inputNamePopupAdd.value = '';
+  inputLinkPopupAdd.value = '';
+  openPopup(popupAdd);
+}
+
 initialCardList();
 buttonOpenPopupEdit.addEventListener('click', openPopupEdit);
 formPopupEdit.addEventListener('submit', submitPopupEdit);
-popupEdit.addEventListener('click', (evt) => {searchEventClickPopup(evt)});
+popupEdit.addEventListener('mousedown', (evt) => {searchEventClickPopup(evt)});
 document.addEventListener('keydown', (evt) => {searchEventKeyPopup(evt, popupEdit)});
-buttonOpenPopupAdd.addEventListener('click', () => {openPopup(popupAdd)});
+buttonOpenPopupAdd.addEventListener('click', openPopupAdd);
 formPopupAdd.addEventListener('submit', submitPopupAdd);
-popupAdd.addEventListener('click', (evt) => {searchEventClickPopup(evt)});
+popupAdd.addEventListener('mousedown', (evt) => {searchEventClickPopup(evt)});
 document.addEventListener('keydown', (evt) => {searchEventKeyPopup(evt, popupAdd)});
-popupCard.addEventListener('click', (evt) => {searchEventClickPopup(evt)});
+popupCard.addEventListener('mousedown', (evt) => {searchEventClickPopup(evt)});
 document.addEventListener('keydown', (evt) => {searchEventKeyPopup(evt, popupCard)});

@@ -4,3 +4,8 @@
   color: #000;
   opacity: .2;
 }
+
+.popup__button_disabled:hover {
+  cursor: auto;
+  opacity: .2;
+}
