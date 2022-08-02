@@ -25,16 +25,6 @@ function enableValidation(config) {
     formElement.addEventListener('submit', evt => {
       evt.preventDefault();
     });
-    formElement.addEventListener('reset', evt => {
-      const inputList = Array.from(evt.target.querySelectorAll(config.inputSelector));
-      inputList.forEach((inputElement) => {
-        const errorElement = evt.currentTarget.querySelector(`.${inputElement.name}-error`);
-        inputElement.classList.remove(config.inputErrorClass);
-        errorElement.textContent = '';
-        const buttonElement = formElement.querySelector(config.submitButtonSelector);
-        disableButton(config, buttonElement);
-      });
-    });
     setEventListeners(config, formElement, config.inputSelector);
   });
 }
@@ -43,6 +33,12 @@ function setEventListeners(config, formElement) {
   const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
   const buttonElement = formElement.querySelector(config.submitButtonSelector);
   disableButton(config, buttonElement);
+  formElement.addEventListener('reset', evt => {
+    inputList.forEach((inputElement) => {
+      hideInputError(config, evt.currentTarget, inputElement)
+    });
+    disableButton(config, buttonElement);
+  });
   inputList.forEach(inputElement => {
     inputElement.addEventListener('input', () => {
       checkInputValidity(config, formElement, inputElement);
