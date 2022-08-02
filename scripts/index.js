@@ -72,8 +72,7 @@ function closePopup(popup) {
 }
 
 function openPopupEdit () {
-  inputNamePopupEdit.value = textNameProfile.textContent;
-  inputAboutMePopupEdit.value = textAboutMeProfile.textContent;
+  formPopupEdit.reset();
   openPopup(popupEdit);
 }
 
@@ -112,9 +111,8 @@ function searchEventKeyPopup(evt, popup) {
   }
 }
 
-function openPopupAdd {
-  inputNamePopupAdd.value = '';
-  inputLinkPopupAdd.value = '';
+function openPopupAdd() {
+  formPopupAdd.reset();
   openPopup(popupAdd);
 }
 

@@ -23,6 +23,16 @@ function enableValidation(config) {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
   formList.forEach(formElement => {
     formElement.addEventListener('submit', evt => {evt.preventDefault()});
+    formElement.addEventListener('reset', evt => {
+      const inputList = Array.from(evt.target.querySelectorAll(config.inputSelector));
+      inputList.forEach((inputElement) => {
+        const errorElement = evt.currentTarget.querySelector(`.${inputElement.name}-error`);
+        inputElement.classList.remove(config.inputErrorClass);
+        errorElement.textContent = '';
+      });
+      const buttonElement = formElement.querySelector(config.submitButtonSelector);
+      toggleButtonState(config, inputList, buttonElement)
+    });
     setEventListeners(config, formElement, config.inputSelector);
   });
 }
