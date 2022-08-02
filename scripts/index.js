@@ -72,7 +72,9 @@ function closePopup(popup) {
 }
 
 function openPopupEdit () {
-  formPopupEdit.reset();
+  
+  inputNamePopupEdit.value = textNameProfile.textContent;
+  inputAboutMePopupEdit.value = textAboutMeProfile.textContent;
   openPopup(popupEdit);
 }
 
@@ -84,7 +86,6 @@ function submitPopupEdit (evt) {
 }
 
 function submitPopupAdd (evt) {
-  evt.preventDefault();
   addCard({
     name: inputNamePopupAdd.value,
     link: inputLinkPopupAdd.value
@@ -102,27 +103,30 @@ function openPopupCard (evt) {
 function searchEventClickPopup(evt) {
   if (evt.target === evt.currentTarget || evt.target.classList.contains('popup__button-close')) {
     closePopup(evt.currentTarget);
+    evt.currentTarget.querySelector('.popup__form').reset();
   }
 }
 
 function searchEventKeyPopup(evt, popup) {
   if (evt.keyCode === 27) {
     closePopup(popup);
+    evt.currentTarget.querySelector('.popup__form').reset();
   }
-}
-
-function openPopupAdd() {
-  formPopupAdd.reset();
-  openPopup(popupAdd);
 }
 
 initialCardList();
 buttonOpenPopupEdit.addEventListener('click', openPopupEdit);
-formPopupEdit.addEventListener('submit', submitPopupEdit);
+formPopupEdit.addEventListener('submit', () => {
+  submitPopupEdit();
+  formPopupEdit.reset();
+});
 popupEdit.addEventListener('mousedown', (evt) => {searchEventClickPopup(evt)});
 document.addEventListener('keydown', (evt) => {searchEventKeyPopup(evt, popupEdit)});
-buttonOpenPopupAdd.addEventListener('click', openPopupAdd);
-formPopupAdd.addEventListener('submit', submitPopupAdd);
+buttonOpenPopupAdd.addEventListener('click', () => {openPopup(popupAdd)});
+formPopupAdd.addEventListener('submit', () => {
+  submitPopupAdd();
+  formPopupAdd.reset();
+});
 popupAdd.addEventListener('mousedown', (evt) => {searchEventClickPopup(evt)});
 document.addEventListener('keydown', (evt) => {searchEventKeyPopup(evt, popupAdd)});
 popupCard.addEventListener('mousedown', (evt) => {searchEventClickPopup(evt)});

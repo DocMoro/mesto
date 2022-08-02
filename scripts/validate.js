@@ -22,16 +22,18 @@ function hideInputError(config, formElement, inputElement) {
 function enableValidation(config) {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
   formList.forEach(formElement => {
-    formElement.addEventListener('submit', evt => {evt.preventDefault()});
+    formElement.addEventListener('submit', evt => {
+      evt.preventDefault();
+    });
     formElement.addEventListener('reset', evt => {
       const inputList = Array.from(evt.target.querySelectorAll(config.inputSelector));
       inputList.forEach((inputElement) => {
         const errorElement = evt.currentTarget.querySelector(`.${inputElement.name}-error`);
         inputElement.classList.remove(config.inputErrorClass);
         errorElement.textContent = '';
+        const buttonElement = formElement.querySelector(config.submitButtonSelector);
+        disableButton(config, buttonElement);
       });
-      const buttonElement = formElement.querySelector(config.submitButtonSelector);
-      toggleButtonState(config, inputList, buttonElement)
     });
     setEventListeners(config, formElement, config.inputSelector);
   });
@@ -40,7 +42,7 @@ function enableValidation(config) {
 function setEventListeners(config, formElement) {
   const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
   const buttonElement = formElement.querySelector(config.submitButtonSelector);
-  toggleButtonState(config, inputList, buttonElement);
+  disableButton(config, buttonElement);
   inputList.forEach(inputElement => {
     inputElement.addEventListener('input', () => {
       checkInputValidity(config, formElement, inputElement);
@@ -59,12 +61,16 @@ function checkInputValidity(config, formElement, inputElement) {
 
 function toggleButtonState(config, inputList, buttonElement) {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(config.inactiveButtonClass);
-    buttonElement.setAttribute('disabled', '');
+    disableButton(config, buttonElement);
   } else {
     buttonElement.classList.remove(config.inactiveButtonClass);
     buttonElement.removeAttribute('disabled');
   }
+}
+
+function disableButton(config, buttonElement) {
+  buttonElement.classList.add(config.inactiveButtonClass);
+  buttonElement.setAttribute('disabled', '');
 }
 
 function hasInvalidInput(inputList) {
