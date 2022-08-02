@@ -15,7 +15,8 @@ const inputNamePopupAdd = formPopupAdd.querySelector('.popup__input_field_card-n
 const inputLinkPopupAdd = formPopupAdd.querySelector('.popup__input_field_card-link');
 const popupCard = document.querySelector('.page__card-popup');
 const buttonClosePopupCard = popupCard.querySelector('.popup__button-close');
-const templeCard = document.querySelector('.template-card').content.querySelector('.card')
+const templeCard = document.querySelector('.template-card').content.querySelector('.card');
+const ESC = 27;
 
 
 function initialCardList() {
@@ -53,9 +54,10 @@ function createCard({name, link}) {
   const imageNewCard = newCard.querySelector('.card__image');
   newCard.querySelector('.card__title').textContent = name;
   imageNewCard.src = link;
-  newCard.querySelector('.card__button').addEventListener('click', (evt) => {evt.target.classList.toggle('card__button_like')});
-  newCard.querySelector('.card__delete').addEventListener('click', () => {newCard.remove()});
-  imageNewCard.addEventListener('click', openPopupCard);
+  imageNewCard.alt = name;
+  newCard.querySelector('.card__button').addEventListener('click', (evt) => evt.target.classList.toggle('card__button_like'));
+  newCard.querySelector('.card__delete').addEventListener('click', () => newCard.remove());
+  imageNewCard.addEventListener('click', () => openPopupCard({name, link}));
   return newCard;
 }
 
@@ -64,10 +66,12 @@ function addCard(dateCard) {
 }
 
 function openPopup(popup) {
+  document.addEventListener('keydown', evt => searchEventKeyPopup(evt, popup));
   popup.classList.add('popup_active');
 }
 
 function closePopup(popup) {
+  document.removeEventListener('keydown', evt => searchEventKeyPopup(evt, popup));
   popup.classList.remove('popup_active');
 }
 
@@ -99,10 +103,11 @@ function submitPopupAdd (evt) {
   closePopup(popupAdd);
 }
 
-function openPopupCard (evt) {
-  imageCard = evt.target;
-  popupCard.querySelector('.popup__image').src = imageCard.src;
-  popupCard.querySelector('.popup__subtitle').textContent = imageCard.closest('.card').querySelector('.card__title').textContent;
+function openPopupCard ({name, link}) {
+  imagePopup = popupCard.querySelector('.popup__image');
+  imagePopup.src = link;
+  imagePopup.alt = name;
+  popupCard.querySelector('.popup__subtitle').textContent = name;
   openPopup(popupCard);
 }
 
@@ -113,7 +118,7 @@ function searchEventClickPopup(evt) {
 }
 
 function searchEventKeyPopup(evt, popup) {
-  if (evt.keyCode === 27) {
+  if (evt.keyCode === ESC) {
     closePopup(popup);
   }
 }
@@ -121,11 +126,8 @@ function searchEventKeyPopup(evt, popup) {
 initialCardList();
 buttonOpenPopupEdit.addEventListener('click', openPopupEdit);
 formPopupEdit.addEventListener('submit', submitPopupEdit);
-popupEdit.addEventListener('mousedown', (evt) => {searchEventClickPopup(evt)});
-document.addEventListener('keydown', (evt) => {searchEventKeyPopup(evt, popupEdit)});
+popupEdit.addEventListener('mousedown', evt => searchEventClickPopup(evt));
 buttonOpenPopupAdd.addEventListener('click', openPopupAdd);
 formPopupAdd.addEventListener('submit', submitPopupAdd);
-popupAdd.addEventListener('mousedown', (evt) => {searchEventClickPopup(evt)});
-document.addEventListener('keydown', (evt) => {searchEventKeyPopup(evt, popupAdd)});
-popupCard.addEventListener('mousedown', (evt) => {searchEventClickPopup(evt)});
-document.addEventListener('keydown', (evt) => {searchEventKeyPopup(evt, popupCard)});
+popupAdd.addEventListener('mousedown', evt => searchEventClickPopup(evt));
+popupCard.addEventListener('mousedown', evt => searchEventClickPopup(evt));

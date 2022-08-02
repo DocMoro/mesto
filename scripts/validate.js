@@ -22,9 +22,7 @@ function hideInputError(formElement, inputElement) {
 function enableValidation() {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
   formList.forEach(formElement => {
-    formElement.addEventListener('submit', evt => {
-      evt.preventDefault();
-    });
+    formElement.addEventListener('submit', evt => evt.preventDefault());
     setEventListeners(formElement, config.inputSelector);
   });
 }
@@ -33,9 +31,9 @@ function setEventListeners(formElement) {
   const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
   const buttonElement = formElement.querySelector(config.submitButtonSelector);
   disableButton(buttonElement);
-  formElement.addEventListener('reset', evt => {
+  formElement.addEventListener('reset', () => {
     inputList.forEach((inputElement) => {
-      hideInputError(evt.currentTarget, inputElement)
+      hideInputError(formElement, inputElement)
     });
     disableButton(buttonElement);
   });
