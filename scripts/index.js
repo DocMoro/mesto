@@ -66,12 +66,12 @@ function addCard(dateCard) {
 }
 
 function openPopup(popup) {
-  document.addEventListener('keydown', evt => searchEventKeyPopup(evt, popup));
+  document.addEventListener('keydown', searchEventKeyPopup);
   popup.classList.add('popup_active');
 }
 
 function closePopup(popup) {
-  document.removeEventListener('keydown', evt => searchEventKeyPopup(evt, popup));
+  document.removeEventListener('keydown', searchEventKeyPopup);
   popup.classList.remove('popup_active');
 }
 
@@ -117,9 +117,9 @@ function searchEventClickPopup(evt) {
   }
 }
 
-function searchEventKeyPopup(evt, popup) {
+function searchEventKeyPopup(evt) {
   if (evt.keyCode === ESC) {
-    closePopup(popup);
+    closePopup(document.querySelector('.popup_active'));
   }
 }
 
