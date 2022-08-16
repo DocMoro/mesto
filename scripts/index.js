@@ -1,69 +1,57 @@
+import Card from './card.js';
+import FormValidator from './validate.js';
+
+const dateCards = [
+  {
+    name: 'Красноярск',
+    link: './images/krasnoyarsk.jpg'
+  },
+  {
+    name: 'Сочи',
+    link: './images/sochi.jpg'
+  },
+  {
+    name: 'Нижний Новгород',
+    link: './images/nizhny_novgorod.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: './images/kamchatka.jpg'
+  },
+  {
+    name: 'Москва',
+    link: './images/moscow.jpg'
+  },
+  {
+    name: 'Санкт-Петербург',
+    link: './images/st-petersburg.jpg'
+  }
+];
+
+const config = {
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+};
+
+const formSelector = '.popup__form';
+
+const ESC = 27;
 const popupEdit = document.querySelector('.page__edit-popup');
 const formPopupEdit = popupEdit.querySelector('.popup__form');
 const buttonOpenPopupEdit = document.querySelector('.profile__edit-button');
-const buttonClosePopupEdit = popupEdit.querySelector('.popup__button-close');
 const inputNamePopupEdit = formPopupEdit.querySelector('.popup__input_field_name');
 const inputAboutMePopupEdit = formPopupEdit.querySelector('.popup__input_field_about-me');
 const textNameProfile = document.querySelector('.profile__name');
 const textAboutMeProfile = document.querySelector('.profile__about-me');
-const listCards = document.querySelector('.cards');
 const popupAdd = document.querySelector('.page__add-popup');
 const formPopupAdd = popupAdd.querySelector('.popup__form');
 const buttonOpenPopupAdd = document.querySelector('.profile__add-button');
-const buttonClosePopupAdd = popupAdd.querySelector('.popup__button-close');
 const inputNamePopupAdd = formPopupAdd.querySelector('.popup__input_field_card-name');
 const inputLinkPopupAdd = formPopupAdd.querySelector('.popup__input_field_card-link');
 const popupCard = document.querySelector('.page__card-popup');
-const buttonClosePopupCard = popupCard.querySelector('.popup__button-close');
-const templeCard = document.querySelector('.template-card').content.querySelector('.card');
-const ESC = 27;
-
-
-function initialCardList() {
-  const dateCards = [
-    {
-      name: 'Красноярск',
-      link: './images/krasnoyarsk.jpg'
-    },
-    {
-      name: 'Сочи',
-      link: './images/sochi.jpg'
-    },
-    {
-      name: 'Нижний Новгород',
-      link: './images/nizhny_novgorod.jpg'
-    },
-    {
-      name: 'Камчатка',
-      link: './images/kamchatka.jpg'
-    },
-    {
-      name: 'Москва',
-      link: './images/moscow.jpg'
-    },
-    {
-      name: 'Санкт-Петербург',
-      link: './images/st-petersburg.jpg'
-    }
-  ];
-  dateCards.forEach(addCard);
-}
-
-function createCard({name, link}) {
-  const newCard = templeCard.cloneNode(true);
-  const imageNewCard = newCard.querySelector('.card__image');
-  newCard.querySelector('.card__title').textContent = name;
-  imageNewCard.src = link;
-  imageNewCard.alt = name;
-  newCard.querySelector('.card__button').addEventListener('click', (evt) => evt.target.classList.toggle('card__button_like'));
-  newCard.querySelector('.card__delete').addEventListener('click', () => newCard.remove());
-  imageNewCard.addEventListener('click', () => openPopupCard({name, link}));
-  return newCard;
-}
-
-function addCard(dateCard) {
-  listCards.prepend(createCard(dateCard));
-}
 
 function openPopup(popup) {
   document.addEventListener('keydown', searchEventKeyPopup);
@@ -103,13 +91,13 @@ function submitPopupAdd (evt) {
   closePopup(popupAdd);
 }
 
-function openPopupCard ({name, link}) {
-  imagePopup = popupCard.querySelector('.popup__image');
-  imagePopup.src = link;
-  imagePopup.alt = name;
-  popupCard.querySelector('.popup__subtitle').textContent = name;
-  openPopup(popupCard);
-}
+export default function openPopupCard (name, link) { 
+  const imagePopup = popupCard.querySelector('.popup__image'); 
+  imagePopup.src = link; 
+  imagePopup.alt = name; 
+  popupCard.querySelector('.popup__subtitle').textContent = name; 
+  openPopup(popupCard); 
+} 
 
 function searchEventClickPopup(evt) {
   if (evt.target === evt.currentTarget || evt.target.classList.contains('popup__button-close')) {
@@ -123,7 +111,27 @@ function searchEventKeyPopup(evt) {
   }
 }
 
-initialCardList();
+function initialCardList(dateCards) {
+  dateCards.forEach(dateCard => addCard(dateCard));
+}
+
+function addCard(date) {
+  let card = new Card(date, '.template-card');
+  const listCards = document.querySelector('.cards');
+  listCards.prepend(card.create());
+}
+
+function enableValidation() {
+  const formList = Array.from(document.querySelectorAll(formSelector));
+  formList.forEach(formElement => {
+    let formValidation = new FormValidator(config, formElement)
+    formElement.addEventListener('submit', evt => evt.preventDefault());
+    formValidation.setEventListeners(formElement, config.inputSelector);
+  });
+}
+
+initialCardList(dateCards);
+enableValidation();
 buttonOpenPopupEdit.addEventListener('click', openPopupEdit);
 formPopupEdit.addEventListener('submit', submitPopupEdit);
 popupEdit.addEventListener('mousedown', evt => searchEventClickPopup(evt));
