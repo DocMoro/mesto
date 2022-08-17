@@ -53,6 +53,7 @@ const inputNamePopupAdd = formPopupAdd.querySelector('.popup__input_field_card-n
 const inputLinkPopupAdd = formPopupAdd.querySelector('.popup__input_field_card-link');
 const popupCard = document.querySelector('.page__card-popup');
 const listCards = document.querySelector('.cards');
+const popups = document.querySelectorAll('.popup');
 
 function openPopup(popup) {
   document.addEventListener('keydown', searchEventKeyPopup);
@@ -92,7 +93,7 @@ function submitPopupAdd (evt) {
   closePopup(popupAdd);
 }
 
-export default function openPopupCard (name, link) { 
+function openPopupCard (name, link) { 
   const imagePopup = popupCard.querySelector('.popup__image'); 
   imagePopup.src = link; 
   imagePopup.alt = name; 
@@ -122,9 +123,8 @@ function addPrependCards(dataCard) {
 }
 
 function createCard(dataCard) {
-  const cardElement = new Card(dataCard, '.template-card');
-  cardElement.create()
-  return cardElement
+  const cardElement = new Card(dataCard, '.template-card', openPopupCard);
+  return cardElement.generateCard()
 }
 
 function enableFormValidation() {
@@ -139,8 +139,9 @@ initialCardList(dateCards);
 enableFormValidation();
 buttonOpenPopupEdit.addEventListener('click', openPopupEdit);
 formPopupEdit.addEventListener('submit', submitPopupEdit);
-popupEdit.addEventListener('mousedown', evt => searchEventClickPopup(evt));
 buttonOpenPopupAdd.addEventListener('click', openPopupAdd);
 formPopupAdd.addEventListener('submit', submitPopupAdd);
-popupAdd.addEventListener('mousedown', evt => searchEventClickPopup(evt));
-popupCard.addEventListener('mousedown', evt => searchEventClickPopup(evt));
+
+popups.forEach((popup) => {
+  popup.addEventListener('mousedown', evt => searchEventClickPopup(evt));
+});

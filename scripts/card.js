@@ -1,13 +1,12 @@
-import openPopupCard from './index.js'
-
 export default class Card {
-  constructor(dateCard, selector) {
+  constructor(dateCard, selector, handleImageClick) {
     this._name = dateCard.name;
     this._link = dateCard.link;
     this._selector = selector;
+    this._handleImageClick = handleImageClick;
   }
 
-  create() {
+  generateCard() {
     this._element = document.querySelector(this._selector).content.querySelector('.card').cloneNode(true);
     this._imageElement = this._element.querySelector('.card__image');
     this._setEventListeners();
@@ -18,8 +17,16 @@ export default class Card {
   }
 
   _setEventListeners() {
-    this._element.querySelector('.card__button').addEventListener('click', evt => evt.target.classList.toggle('card__button_like'));
-    this._element.querySelector('.card__delete').addEventListener('click', () => this._element.remove());
-    this._imageElement.addEventListener('click', () => openPopupCard(this._name, this._link));
+    this._element.querySelector('.card__button').addEventListener('click', evt => this._toggleLike(evt));
+    this._element.querySelector('.card__delete').addEventListener('click', () => this._deleteCard());
+    this._imageElement.addEventListener('click', () => this._handleImageClick(this._name, this._link));
+  }
+
+  _toggleLike(evt) {
+    evt.target.classList.toggle('card__button_like');
+  }
+
+  _deleteCard() {
+    this._element.remove();
   }
 }
