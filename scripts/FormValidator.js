@@ -20,7 +20,12 @@ export default class FormValidator {
     errorElement.textContent = '';
   }
 
-  setEventListeners() {
+  enableValidation() {
+    this._formElement.addEventListener('submit', evt => evt.preventDefault());
+    this._setEventListeners();
+  }
+
+  _setEventListeners() {
     const inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
     const buttonElement = this._formElement.querySelector(this._submitButtonSelector);
     this._disableButton(buttonElement);

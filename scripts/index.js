@@ -1,5 +1,5 @@
-import Card from './card.js';
-import FormValidator from './validate.js';
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
 
 const dateCards = [
   {
@@ -52,6 +52,7 @@ const buttonOpenPopupAdd = document.querySelector('.profile__add-button');
 const inputNamePopupAdd = formPopupAdd.querySelector('.popup__input_field_card-name');
 const inputLinkPopupAdd = formPopupAdd.querySelector('.popup__input_field_card-link');
 const popupCard = document.querySelector('.page__card-popup');
+const listCards = document.querySelector('.cards');
 
 function openPopup(popup) {
   document.addEventListener('keydown', searchEventKeyPopup);
@@ -84,7 +85,7 @@ function submitPopupEdit (evt) {
 
 function submitPopupAdd (evt) {
   evt.preventDefault();
-  addCard({
+  addPrependCards({
     name: inputNamePopupAdd.value,
     link: inputLinkPopupAdd.value
   });
@@ -112,26 +113,30 @@ function searchEventKeyPopup(evt) {
 }
 
 function initialCardList(dateCards) {
-  dateCards.forEach(dateCard => addCard(dateCard));
+  dateCards.forEach(dateCard => addPrependCards(dateCard));
 }
 
-function addCard(date) {
-  let card = new Card(date, '.template-card');
-  const listCards = document.querySelector('.cards');
-  listCards.prepend(card.create());
+function addPrependCards(dataCard) {
+  const card = createCard(dataCard);
+  listCards.prepend(card);
 }
 
-function enableValidation() {
+function createCard(dataCard) {
+  const cardElement = new Card(dataCard, '.template-card');
+  cardElement.create()
+  return cardElement
+}
+
+function enableFormValidation() {
   const formList = Array.from(document.querySelectorAll(formSelector));
   formList.forEach(formElement => {
-    let formValidation = new FormValidator(config, formElement)
-    formElement.addEventListener('submit', evt => evt.preventDefault());
-    formValidation.setEventListeners(formElement, config.inputSelector);
+    const formValidation = new FormValidator(config, formElement);
+    formValidation.enableValidation();
   });
 }
 
 initialCardList(dateCards);
-enableValidation();
+enableFormValidation();
 buttonOpenPopupEdit.addEventListener('click', openPopupEdit);
 formPopupEdit.addEventListener('submit', submitPopupEdit);
 popupEdit.addEventListener('mousedown', evt => searchEventClickPopup(evt));
