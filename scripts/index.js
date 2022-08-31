@@ -1,6 +1,7 @@
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 import Popup from './Popup.js';
+import PopupWithImage from './PopupWithImage.js'
 
 const dateCards = [
   {
@@ -51,7 +52,7 @@ const formPopupAdd = popupAdd.popup.querySelector('.popup__form');
 const buttonOpenPopupAdd = document.querySelector('.profile__add-button');
 const inputNamePopupAdd = formPopupAdd.querySelector('.popup__input_field_card-name');
 const inputLinkPopupAdd = formPopupAdd.querySelector('.popup__input_field_card-link');
-const popupCard = new Popup('.page__card-popup');
+const popupCard = new PopupWithImage('.page__card-popup');
 const listCards = document.querySelector('.cards');
 const popups = [popupEdit, popupAdd, popupCard];
 
@@ -83,15 +84,6 @@ function submitPopupAdd (evt) {
   popupAdd.closePopup();
 }
 
-function openPopupCard (name, link) { 
-  const popup = popupCard.popup;
-  const imagePopup = popup.querySelector('.popup__image'); 
-  imagePopup.src = link; 
-  imagePopup.alt = name; 
-  popup.querySelector('.popup__subtitle').textContent = name; 
-  popupCard.openPopup(); 
-}
-
 function initialCardList(dateCards) {
   dateCards.forEach(dateCard => addPrependCards(dateCard));
 }
@@ -102,7 +94,7 @@ function addPrependCards(dataCard) {
 }
 
 function createCard(dataCard) {
-  const cardElement = new Card(dataCard, '.template-card', openPopupCard);
+  const cardElement = new Card(dataCard, '.template-card', popupCard.openPopup.bind(popupCard));
   return cardElement.generateCard()
 }
 

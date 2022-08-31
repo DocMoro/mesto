@@ -3,15 +3,16 @@ const ESC = 27;
 export default class Popup {
   constructor(popupSelector) {
     this.popup = document.querySelector(popupSelector);
+    this._bindHandleEscClose = this._handleEscClose.bind(this);
   }
 
   openPopup() {
-    document.addEventListener('keydown', this._handleEscClose);
+    document.addEventListener('keydown', this._bindHandleEscClose);
     this.popup.classList.add('popup_active');
   }
   
   closePopup() {
-    document.removeEventListener('keydown', this._handleEscClose);
+    document.removeEventListener('keydown', this._bindHandleEscClose);
     this.popup.classList.remove('popup_active');
   }
 
