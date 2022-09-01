@@ -22,9 +22,11 @@ export default class Popup {
     }
   }
 
-  setEventListeners(evt) {
-    if (evt.target === evt.currentTarget || evt.target.classList.contains('popup__button-close')) {
-      this.closePopup();
-    }
+  setEventListeners() {
+    this.popup.addEventListener('mousedown', evt => {
+      if (evt.target === evt.currentTarget || evt.target.classList.contains('popup__button-close')) {
+        this.closePopup();
+      }
+    });
   }
 }

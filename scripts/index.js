@@ -1,7 +1,8 @@
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
-import Popup from './Popup.js';
-import PopupWithImage from './PopupWithImage.js'
+import PopupWithImage from './PopupWithImage.js';
+import PopupWithForm from './PopupWithForm.js';
+import Section from './Section.js';
 
 const dateCards = [
   {
@@ -38,23 +39,48 @@ const config = {
   errorClass: 'popup__error_visible'
 };
 
-const formSelector = '.popup__form';
+const popupEdit = new PopupWithForm('.page__edit-popup', evt => {
+  evt.preventDefault();
+  textNameProfile.textContent = inputNamePopupEdit.value;
+  textAboutMeProfile.textContent = inputAboutMePopupEdit.value;
+  popupEdit.closePopup();
+});
 
-const popupEdit = new Popup('.page__edit-popup');
+const popupAdd = new PopupWithForm('.page__add-popup', evt => {
+  evt.preventDefault();
+  const card = new Card({
+    name: inputNamePopupAdd.value,
+    link: inputLinkPopupAdd.value
+  }, '.template-card', popupCard.openPopup.bind(popupCard));
+  const elementCard = card.generateCard();
+  listCards.addItem(elementCard)
+  popupAdd.closePopup();
+});
+
+const popupCard = new PopupWithImage('.page__card-popup');
+
+const popups = [popupEdit, popupAdd, popupCard];
+
+const listCards = new Section({
+  data: dateCards,
+  renderer: (dateCard) => {
+    const card = new Card(dateCard, '.template-card', popupCard.openPopup.bind(popupCard));
+    const elementCard = card.generateCard();
+    listCards.addItem(elementCard);
+  },
+}, '.cards', );
+
+const formSelector = '.popup__form';
 const formPopupEdit = popupEdit.popup.querySelector('.popup__form');
 const buttonOpenPopupEdit = document.querySelector('.profile__edit-button');
 const inputNamePopupEdit = formPopupEdit.querySelector('.popup__input_field_name');
 const inputAboutMePopupEdit = formPopupEdit.querySelector('.popup__input_field_about-me');
 const textNameProfile = document.querySelector('.profile__name');
 const textAboutMeProfile = document.querySelector('.profile__about-me');
-const popupAdd = new Popup('.page__add-popup');
 const formPopupAdd = popupAdd.popup.querySelector('.popup__form');
 const buttonOpenPopupAdd = document.querySelector('.profile__add-button');
 const inputNamePopupAdd = formPopupAdd.querySelector('.popup__input_field_card-name');
 const inputLinkPopupAdd = formPopupAdd.querySelector('.popup__input_field_card-link');
-const popupCard = new PopupWithImage('.page__card-popup');
-const listCards = document.querySelector('.cards');
-const popups = [popupEdit, popupAdd, popupCard];
 
 function openPopupEdit () {
   formPopupEdit.reset();
@@ -68,36 +94,6 @@ function openPopupAdd() {
   popupAdd.openPopup();
 }
 
-function submitPopupEdit (evt) {
-  evt.preventDefault();
-  textNameProfile.textContent = inputNamePopupEdit.value;
-  textAboutMeProfile.textContent = inputAboutMePopupEdit.value;
-  popupEdit.closePopup();
-}
-
-function submitPopupAdd (evt) {
-  evt.preventDefault();
-  addPrependCards({
-    name: inputNamePopupAdd.value,
-    link: inputLinkPopupAdd.value
-  });
-  popupAdd.closePopup();
-}
-
-function initialCardList(dateCards) {
-  dateCards.forEach(dateCard => addPrependCards(dateCard));
-}
-
-function addPrependCards(dataCard) {
-  const card = createCard(dataCard);
-  listCards.prepend(card);
-}
-
-function createCard(dataCard) {
-  const cardElement = new Card(dataCard, '.template-card', popupCard.openPopup.bind(popupCard));
-  return cardElement.generateCard()
-}
-
 function enableFormValidation() {
   const formList = Array.from(document.querySelectorAll(formSelector));
   formList.forEach(formElement => {
@@ -106,13 +102,11 @@ function enableFormValidation() {
   });
 }
 
-initialCardList(dateCards);
+listCards.renderItems();
 enableFormValidation();
 buttonOpenPopupEdit.addEventListener('click', openPopupEdit);
-formPopupEdit.addEventListener('submit', submitPopupEdit);
 buttonOpenPopupAdd.addEventListener('click', openPopupAdd);
-formPopupAdd.addEventListener('submit', submitPopupAdd);
 
 popups.forEach((popupObj) => {
-  popupObj.popup.addEventListener('mousedown', evt => popupObj.setEventListeners(evt));
+  popupObj.setEventListeners();
 });
