@@ -39,6 +39,8 @@ const config = {
   errorClass: 'popup__error_visible'
 };
 
+const formSelector = '.popup__form';
+
 const popupEdit = new PopupWithForm('.page__edit-popup', evt => {
   evt.preventDefault();
   textNameProfile.textContent = inputNamePopupEdit.value;
@@ -59,8 +61,6 @@ const popupAdd = new PopupWithForm('.page__add-popup', evt => {
 
 const popupCard = new PopupWithImage('.page__card-popup');
 
-const popups = [popupEdit, popupAdd, popupCard];
-
 const listCards = new Section({
   data: dateCards,
   renderer: (dateCard) => {
@@ -70,7 +70,6 @@ const listCards = new Section({
   },
 }, '.cards', );
 
-const formSelector = '.popup__form';
 const formPopupEdit = popupEdit.popup.querySelector('.popup__form');
 const buttonOpenPopupEdit = document.querySelector('.profile__edit-button');
 const inputNamePopupEdit = formPopupEdit.querySelector('.popup__input_field_name');
@@ -82,17 +81,8 @@ const buttonOpenPopupAdd = document.querySelector('.profile__add-button');
 const inputNamePopupAdd = formPopupAdd.querySelector('.popup__input_field_card-name');
 const inputLinkPopupAdd = formPopupAdd.querySelector('.popup__input_field_card-link');
 
-function openPopupEdit () {
-  formPopupEdit.reset();
-  inputNamePopupEdit.value = textNameProfile.textContent;
-  inputAboutMePopupEdit.value = textAboutMeProfile.textContent;
-  popupEdit.openPopup();
-}
-
-function openPopupAdd() {
-  formPopupAdd.reset();
-  popupAdd.openPopup();
-}
+const openPopupEdit = popupEdit.openPopup.bind(popupEdit);
+const popups = [popupEdit, popupAdd, popupCard];
 
 function enableFormValidation() {
   const formList = Array.from(document.querySelectorAll(formSelector));
@@ -104,8 +94,12 @@ function enableFormValidation() {
 
 listCards.renderItems();
 enableFormValidation();
-buttonOpenPopupEdit.addEventListener('click', openPopupEdit);
-buttonOpenPopupAdd.addEventListener('click', openPopupAdd);
+buttonOpenPopupEdit.addEventListener('click', () => {
+  openPopupEdit();
+  inputNamePopupEdit.value = textNameProfile.textContent;
+  inputAboutMePopupEdit.value = textAboutMeProfile.textContent;
+});
+buttonOpenPopupAdd.addEventListener('click', popupAdd.openPopup.bind(popupAdd));
 
 popups.forEach((popupObj) => {
   popupObj.setEventListeners();
