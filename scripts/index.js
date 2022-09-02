@@ -3,6 +3,7 @@ import FormValidator from './FormValidator.js';
 import PopupWithImage from './PopupWithImage.js';
 import PopupWithForm from './PopupWithForm.js';
 import Section from './Section.js';
+import UserInfo from './UserInfo.js';
 
 const dateCards = [
   {
@@ -41,10 +42,13 @@ const config = {
 
 const formSelector = '.popup__form';
 
+const userInfo = new UserInfo({
+  selectorUserName: '.profile__name',
+  selectorUserInfo: '.profile__about-me'});
+
 const popupEdit = new PopupWithForm('.page__edit-popup', evt => {
   evt.preventDefault();
-  textNameProfile.textContent = inputNamePopupEdit.value;
-  textAboutMeProfile.textContent = inputAboutMePopupEdit.value;
+  userInfo.setUserInfo(inputNamePopupEdit.value, inputAboutMePopupEdit.value);
   popupEdit.closePopup();
 });
 
@@ -74,8 +78,6 @@ const formPopupEdit = popupEdit.popup.querySelector('.popup__form');
 const buttonOpenPopupEdit = document.querySelector('.profile__edit-button');
 const inputNamePopupEdit = formPopupEdit.querySelector('.popup__input_field_name');
 const inputAboutMePopupEdit = formPopupEdit.querySelector('.popup__input_field_about-me');
-const textNameProfile = document.querySelector('.profile__name');
-const textAboutMeProfile = document.querySelector('.profile__about-me');
 const formPopupAdd = popupAdd.popup.querySelector('.popup__form');
 const buttonOpenPopupAdd = document.querySelector('.profile__add-button');
 const inputNamePopupAdd = formPopupAdd.querySelector('.popup__input_field_card-name');
@@ -96,8 +98,7 @@ listCards.renderItems();
 enableFormValidation();
 buttonOpenPopupEdit.addEventListener('click', () => {
   openPopupEdit();
-  inputNamePopupEdit.value = textNameProfile.textContent;
-  inputAboutMePopupEdit.value = textAboutMeProfile.textContent;
+  ({name: inputNamePopupEdit.value, info: inputAboutMePopupEdit.value} = userInfo.getUserInfo());
 });
 buttonOpenPopupAdd.addEventListener('click', popupAdd.openPopup.bind(popupAdd));
 
