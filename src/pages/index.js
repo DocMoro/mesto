@@ -5,30 +5,37 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import Section from '../components/Section.js';
 import UserInfo from '../components/UserInfo.js';
 
+import krasnoyarsk from '../images/krasnoyarsk.jpg';
+import sochi from '../images/sochi.jpg';
+import nizhnyNovgorod from '../images/nizhny_novgorod.jpg';
+import kamchatka from '../images/kamchatka.jpg';
+import moscow from '../images/moscow.jpg';
+import stPetersburg from '../images/st-petersburg.jpg';
+
 const dateCards = [
   {
     name: 'Красноярск',
-    link: './images/krasnoyarsk.jpg'
+    link: krasnoyarsk
   },
   {
     name: 'Сочи',
-    link: './images/sochi.jpg'
+    link: sochi
   },
   {
     name: 'Нижний Новгород',
-    link: './images/nizhny_novgorod.jpg'
+    link: nizhnyNovgorod
   },
   {
     name: 'Камчатка',
-    link: './images/kamchatka.jpg'
+    link: kamchatka
   },
   {
     name: 'Москва',
-    link: './images/moscow.jpg'
+    link: moscow
   },
   {
     name: 'Санкт-Петербург',
-    link: './images/st-petersburg.jpg'
+    link: stPetersburg
   }
 ];
 
