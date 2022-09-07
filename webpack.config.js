@@ -39,9 +39,6 @@ module.exports = {
       }
     ]
   },
-  performance: {
-    hints: false
-  },
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html'
