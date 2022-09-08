@@ -18,4 +18,13 @@ export default class PopupWithForm extends Popup {
       this._submitHandler(evt);
     });
   }
+
+  _getInputValues() {
+    const dataInputs = {};
+    const inputsPopup = Array.from(this._formPopup.querySelectorAll('.popup__input'));
+    inputsPopup.forEach(inputElement => {
+      dataInputs[inputElement.name] = inputElement.value;
+    });
+    return dataInputs;
+  }
 }
