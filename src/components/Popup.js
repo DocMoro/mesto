@@ -1,4 +1,4 @@
-const ESC = 27;
+import { ESC } from './utils.js';
 
 export default class Popup {
   constructor(popupSelector) {
