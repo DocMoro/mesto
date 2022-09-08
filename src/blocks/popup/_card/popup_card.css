@@ -1,0 +1,7 @@
+.popup_card {
+
+}
+
+.popup_card::before {
+  opacity: .9;
+}
