@@ -22,12 +22,10 @@ const popupEdit = new PopupWithForm('.page__edit-popup', evt => {
 
 const popupAdd = new PopupWithForm('.page__add-popup', evt => {
   evt.preventDefault();
-  const card = new Card({
+  addCardToPage({
     name: inputNamePopupAdd.value,
     link: inputLinkPopupAdd.value
-  }, '.template-card', popupCard.openPopup.bind(popupCard));
-  const elementCard = card.generateCard();
-  listCards.addItem(elementCard)
+  });
   popupAdd.closePopup();
 });
 
@@ -35,12 +33,14 @@ const popupCard = new PopupWithImage('.page__card-popup');
 
 const listCards = new Section({
   data: dateCards,
-  renderer: (dateCard) => {
-    const card = new Card(dateCard, '.template-card', popupCard.openPopup.bind(popupCard));
-    const elementCard = card.generateCard();
-    listCards.addItem(elementCard);
-  },
+  renderer: addCardToPage,
 }, '.cards', );
+
+function addCardToPage(dateCard) {
+  const card = new Card(dateCard, '.template-card', popupCard.openPopup.bind(popupCard));
+  const elementCard = card.generateCard();
+  listCards.addItem(elementCard);
+}
 
 const formPopupEdit = popupEdit.popup.querySelector('.popup__form');
 const buttonOpenPopupEdit = document.querySelector('.profile__edit-button');
