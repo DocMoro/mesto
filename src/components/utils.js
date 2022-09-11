@@ -7,28 +7,28 @@ import stPetersburg from '../images/st-petersburg.jpg';
 
 const dateCards = [
   {
-    name: 'Красноярск',
-    link: krasnoyarsk
+    cardName: 'Красноярск',
+    cardLink: krasnoyarsk
   },
   {
-    name: 'Сочи',
-    link: sochi
+    cardName: 'Сочи',
+    cardLink: sochi
   },
   {
-    name: 'Нижний Новгород',
-    link: nizhnyNovgorod
+    cardName: 'Нижний Новгород',
+    cardLink: nizhnyNovgorod
   },
   {
-    name: 'Камчатка',
-    link: kamchatka
+    cardName: 'Камчатка',
+    cardLink: kamchatka
   },
   {
-    name: 'Москва',
-    link: moscow
+    cardName: 'Москва',
+    cardLink: moscow
   },
   {
-    name: 'Санкт-Петербург',
-    link: stPetersburg
+    cardName: 'Санкт-Петербург',
+    cardLink: stPetersburg
   }
 ];
 
