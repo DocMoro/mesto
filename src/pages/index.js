@@ -35,7 +35,7 @@ const listCards = new Section({
 }, '.cards', );
 
 function addCardToPage(dataCard) {
-  const card = new Card(dataCard, '.template-card', popupCard.openPopup.bind(popupCard));
+  const card = new Card(dataCard, '.template-card', popupCard.openPopup);
   const elementCard = card.generateCard();
   listCards.addItem(elementCard);
 }
@@ -43,10 +43,9 @@ function addCardToPage(dataCard) {
 const formPopupEdit = popupEdit.popup.querySelector('.popup__form'); 
 const buttonOpenPopupEdit = document.querySelector('.profile__edit-button'); 
 const inputNamePopupEdit = formPopupEdit.querySelector('.popup__input_field_name'); 
-const inputAboutMePopupEdit = formPopupEdit.querySelector('.popup__input_field_about-me'); 
+const inputInfoPopupEdit = formPopupEdit.querySelector('.popup__input_field_about-me'); 
 const buttonOpenPopupAdd = document.querySelector('.profile__add-button');
 
-const openPopupEdit = popupEdit.openPopup.bind(popupEdit);
 const popups = [popupEdit, popupAdd, popupCard];
 
 function enableFormValidation() {
@@ -60,10 +59,10 @@ function enableFormValidation() {
 listCards.renderItems();
 enableFormValidation();
 buttonOpenPopupEdit.addEventListener('click', () => {
-  openPopupEdit();
-  ({name: inputNamePopupEdit.value, info: inputAboutMePopupEdit.value} = userInfo.getUserInfo());
+  popupEdit.openPopup();
+  ({name: inputNamePopupEdit.value, info: inputInfoPopupEdit.value} = userInfo.getUserInfo());
 });
-buttonOpenPopupAdd.addEventListener('click', popupAdd.openPopup.bind(popupAdd));
+buttonOpenPopupAdd.addEventListener('click', popupAdd.openPopup);
 
 popups.forEach((popupObj) => {
   popupObj.setEventListeners();
