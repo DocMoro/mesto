@@ -15,14 +15,12 @@ const userInfo = new UserInfo({
   selectorUserInfo: '.profile__about-me'
 });
 
-const popupEdit = new PopupWithForm('.page__edit-popup', (evt, data) => {
-  evt.preventDefault();
+const popupEdit = new PopupWithForm('.page__edit-popup', (data) => {
   userInfo.setUserInfo(data.profileName, data.profileInfo);
   popupEdit.closePopup();
 });
 
-const popupAdd = new PopupWithForm('.page__add-popup', (evt, data) => {
-  evt.preventDefault();
+const popupAdd = new PopupWithForm('.page__add-popup', (data) => {
   const elementCard = createCard(data);
   listCards.addItem(elementCard);
   popupAdd.closePopup();
