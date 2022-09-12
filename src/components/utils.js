@@ -40,8 +40,22 @@ const config = {
   errorClass: 'popup__error_visible'
 };
 
+const buttonOpenPopupEdit = document.querySelector('.profile__edit-button'); 
+const inputNamePopupEdit = document.querySelector('.popup__input_field_name'); 
+const inputInfoPopupEdit = document.querySelector('.popup__input_field_about-me'); 
+const buttonOpenPopupAdd = document.querySelector('.profile__add-button');
+
 const formSelector = '.popup__form';
 
 const ESC = 27;
 
-export { dateCards, config, formSelector, ESC }
+export {
+  dateCards,
+  config,
+  formSelector,
+  buttonOpenPopupEdit,
+  inputNamePopupEdit,
+  inputInfoPopupEdit,
+  buttonOpenPopupAdd,
+  ESC
+}

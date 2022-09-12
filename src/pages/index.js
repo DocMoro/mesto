@@ -7,7 +7,15 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import Section from '../components/Section.js';
 import UserInfo from '../components/UserInfo.js';
 
-import { dateCards, config, formSelector } from '../components/utils.js';
+import {
+  dateCards,
+  config,
+  formSelector,
+  buttonOpenPopupEdit,
+  inputNamePopupEdit,
+  inputInfoPopupEdit,
+  buttonOpenPopupAdd
+} from '../components/utils.js';
 
 
 const userInfo = new UserInfo({
@@ -28,6 +36,8 @@ const popupAdd = new PopupWithForm('.page__add-popup', (data) => {
 
 const popupCard = new PopupWithImage('.page__card-popup');
 
+const popups = [popupEdit, popupAdd, popupCard];
+
 const listCards = new Section({
   data: dateCards,
   renderer: createCard,
@@ -38,14 +48,6 @@ function createCard(dataCard) {
   const elementCard = card.generateCard();
   return elementCard;
 }
-
-const formPopupEdit = popupEdit.popup.querySelector('.popup__form'); 
-const buttonOpenPopupEdit = document.querySelector('.profile__edit-button'); 
-const inputNamePopupEdit = formPopupEdit.querySelector('.popup__input_field_name'); 
-const inputInfoPopupEdit = formPopupEdit.querySelector('.popup__input_field_about-me'); 
-const buttonOpenPopupAdd = document.querySelector('.profile__add-button');
-
-const popups = [popupEdit, popupAdd, popupCard];
 
 function enableFormValidation() {
   const formList = Array.from(document.querySelectorAll(formSelector));
