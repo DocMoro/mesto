@@ -23,7 +23,8 @@ const popupEdit = new PopupWithForm('.page__edit-popup', (evt, data) => {
 
 const popupAdd = new PopupWithForm('.page__add-popup', (evt, data) => {
   evt.preventDefault();
-  addCardToPage(data);
+  const elementCard = createCard(data);
+  listCards.addItem(elementCard);
   popupAdd.closePopup();
 });
 
@@ -31,13 +32,13 @@ const popupCard = new PopupWithImage('.page__card-popup');
 
 const listCards = new Section({
   data: dateCards,
-  renderer: addCardToPage,
+  renderer: createCard,
 }, '.cards', );
 
-function addCardToPage(dataCard) {
+function createCard(dataCard) {
   const card = new Card(dataCard, '.template-card', popupCard.openPopup);
   const elementCard = card.generateCard();
-  listCards.addItem(elementCard);
+  return elementCard;
 }
 
 const formPopupEdit = popupEdit.popup.querySelector('.popup__form'); 
