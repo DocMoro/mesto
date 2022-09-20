@@ -21,7 +21,8 @@ import {
 
 const userInfo = new UserInfo({
   selectorUserName: '.profile__name',
-  selectorUserInfo: '.profile__about-me'
+  selectorUserInfo: '.profile__about-me',
+  selectorUserAvatar: '.profile__avatar'
 });
 
 const popupEdit = new PopupWithForm('.page__edit-popup', (data) => {
@@ -45,15 +46,12 @@ const listCards = new Section({
 }, '.cards', );
 
 const api = new Api({
-  url: 'https://mesto.nomoreparties.co./v1/cohort-50/cards/',
+  url: 'https://mesto.nomoreparties.co./v1/cohort-50/',
   headers: {
 		authorization: '869fd84c-8f33-41d3-abfa-9b98ecd7be14',
     'Content-Type': 'application/json'
   },
 });
-
-const data = api.getInitialCards();
-data.then(data => console.log(data));
 
 function createCard(dataCard) {
   const card = new Card(dataCard, '.template-card', popupCard.openPopup);
@@ -68,6 +66,14 @@ function enableFormValidation() {
     formValidation.enableValidation();
   });
 }
+
+
+api.getInitialCards()
+  .then(data => {
+    userInfo.setUserInfo(data.name, data.about);
+    userInfo.setUserAvatar(data.avatar);
+  });
+
 
 listCards.renderItems();
 enableFormValidation();

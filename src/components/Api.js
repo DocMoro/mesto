@@ -5,7 +5,7 @@ export default class Api {
   }
 
   getInitialCards() {
-    return fetch(this._url, {
+    return fetch(`${this._url}users/me`, {
       headers: this._headers
     })
       .then(res => {
