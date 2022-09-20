@@ -6,6 +6,7 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import Section from '../components/Section.js';
 import UserInfo from '../components/UserInfo.js';
+import Api from '../components/Api.js';
 
 import {
   dateCards,
@@ -42,6 +43,17 @@ const listCards = new Section({
   data: dateCards,
   renderer: createCard,
 }, '.cards', );
+
+const api = new Api({
+  url: 'https://mesto.nomoreparties.co./v1/cohort-50/cards/',
+  headers: {
+		authorisation: '',
+    'Content-Type': 'application/json'
+  },
+});
+
+const data = api.getInitialCards();
+data.then(data => console.log(data));
 
 function createCard(dataCard) {
   const card = new Card(dataCard, '.template-card', popupCard.openPopup);
