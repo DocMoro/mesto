@@ -47,7 +47,7 @@ const listCards = new Section({
 const api = new Api({
   url: 'https://mesto.nomoreparties.co./v1/cohort-50/cards/',
   headers: {
-		authorisation: '',
+		authorization: '869fd84c-8f33-41d3-abfa-9b98ecd7be14',
     'Content-Type': 'application/json'
   },
 });

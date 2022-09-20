@@ -5,8 +5,6 @@ export default class Api {
   }
 
   getInitialCards() {
-    console.log(this._url);
-    console.log(this._headers);
     return fetch(this._url, {
       headers: this._headers
     })
