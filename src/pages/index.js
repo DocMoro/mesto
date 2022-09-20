@@ -72,7 +72,8 @@ api.getInitialCards()
   .then(data => {
     userInfo.setUserInfo(data.name, data.about);
     userInfo.setUserAvatar(data.avatar);
-  });
+  })
+  .catch(err => console.log(err));
 
 
 listCards.renderItems();
