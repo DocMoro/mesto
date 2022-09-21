@@ -22,6 +22,6 @@ export default class UserInfo {
   }
 
   setUserId(id) {
-    this._idUser = id;
+    this.idUser = id;
   }
 }

@@ -39,7 +39,7 @@ const popupAdd = new PopupWithForm('.page__add-popup', (data) => {
     link: data.cardLink,
     likes: [],
     owner: {
-      _id: userInfo._idUser
+      _id: userInfo.idUser
     }
   });
   listCards.addItem(elementCard);
@@ -59,7 +59,7 @@ const api = new Api({
 });
 
 function createCard(dataCard) {
-  const card = new Card(dataCard, '.template-card', popupCard.openPopup, userInfo._idUser);
+  const card = new Card(dataCard, '.template-card', popupCard.openPopup, userInfo.idUser);
   const elementCard = card.generateCard();
   return elementCard;
 }
