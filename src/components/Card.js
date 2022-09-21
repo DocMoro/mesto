@@ -2,6 +2,7 @@ export default class Card {
   constructor(dateCard, selector, handleImageClick) {
     this._name = dateCard.name;
     this._link = dateCard.link;
+    this._likes = dateCard.likes;
     this._selector = selector;
     this._handleImageClick = handleImageClick;
   }
@@ -9,6 +10,7 @@ export default class Card {
   generateCard() {
     this._element = document.querySelector(this._selector).content.querySelector('.card').cloneNode(true);
     this._imageElement = this._element.querySelector('.card__image');
+    this._element.querySelector('.card__counter-like').textContent = this._likes.length;
     this._setEventListeners();
     this._element.querySelector('.card__title').textContent = this._name;
     this._imageElement.src = this._link;

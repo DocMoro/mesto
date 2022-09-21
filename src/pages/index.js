@@ -36,7 +36,8 @@ const popupAdd = new PopupWithForm('.page__add-popup', (data) => {
   api.addCard(data.cardName, data.cardLink);
   const elementCard = createCard({
     name: data.cardName,
-    link: data.cardLink
+    link: data.cardLink,
+    likes: []
   });
   listCards.addItem(elementCard);
   popupAdd.closePopup();
