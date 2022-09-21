@@ -33,6 +33,7 @@ const popupEdit = new PopupWithForm('.page__edit-popup', (data) => {
 });
 
 const popupAdd = new PopupWithForm('.page__add-popup', (data) => {
+  api.addCard(data.cardName, data.cardLink);
   const elementCard = createCard({
     name: data.cardName,
     link: data.cardLink
