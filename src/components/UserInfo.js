@@ -20,4 +20,8 @@ export default class UserInfo {
   setUserAvatar(url) {
     this._avatarUser.src = url;
   }
+
+  setUserId(id) {
+    this._idUser = id;
+  }
 }

@@ -37,7 +37,10 @@ const popupAdd = new PopupWithForm('.page__add-popup', (data) => {
   const elementCard = createCard({
     name: data.cardName,
     link: data.cardLink,
-    likes: []
+    likes: [],
+    owner: {
+      _id: userInfo._idUser
+    }
   });
   listCards.addItem(elementCard);
   popupAdd.closePopup();
@@ -56,7 +59,7 @@ const api = new Api({
 });
 
 function createCard(dataCard) {
-  const card = new Card(dataCard, '.template-card', popupCard.openPopup);
+  const card = new Card(dataCard, '.template-card', popupCard.openPopup, userInfo._idUser);
   const elementCard = card.generateCard();
   return elementCard;
 }
@@ -72,6 +75,7 @@ function enableFormValidation() {
 api.getUserInfo()
   .then(data => {
     userInfo.setUserInfo(data.name, data.about);
+    userInfo.setUserId(data._id);
     userInfo.setUserAvatar(data.avatar);
   })
   .catch(err => console.log(err));

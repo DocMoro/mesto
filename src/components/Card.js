@@ -1,15 +1,25 @@
 export default class Card {
-  constructor(dateCard, selector, handleImageClick) {
+  constructor(dateCard, selector, handleImageClick, idUser) {
     this._name = dateCard.name;
     this._link = dateCard.link;
     this._likes = dateCard.likes;
+    this._idCard = dateCard.owner._id
     this._selector = selector;
     this._handleImageClick = handleImageClick;
+    this._idUser = idUser;
   }
 
   generateCard() {
     this._element = document.querySelector(this._selector).content.querySelector('.card').cloneNode(true);
     this._imageElement = this._element.querySelector('.card__image');
+    this._flag = this._idUser === this._idCard;
+    console.log(this._idUser);
+    console.log(this._idCard);
+    console.log(this._flag);
+    if (this._flag) {
+      this._imageElement.insertAdjacentHTML('afterend', 
+        '<button type="button" class="card__delete button" aria-label="Удалить"></button>');
+    }
     this._element.querySelector('.card__counter-like').textContent = this._likes.length;
     this._setEventListeners();
     this._element.querySelector('.card__title').textContent = this._name;
@@ -20,7 +30,9 @@ export default class Card {
 
   _setEventListeners() {
     this._element.querySelector('.card__button').addEventListener('click', evt => this._toggleLike(evt));
-    this._element.querySelector('.card__delete').addEventListener('click', () => this._deleteCard());
+    if (this._flag) {
+      this._element.querySelector('.card__delete').addEventListener('click', () => this._deleteCard());
+    }
     this._imageElement.addEventListener('click', () => this._handleImageClick(this._name, this._link));
   }
 
