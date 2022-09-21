@@ -13,9 +13,6 @@ export default class Card {
     this._element = document.querySelector(this._selector).content.querySelector('.card').cloneNode(true);
     this._imageElement = this._element.querySelector('.card__image');
     this._flag = this._idUser === this._idCard;
-    console.log(this._idUser);
-    console.log(this._idCard);
-    console.log(this._flag);
     if (this._flag) {
       this._imageElement.insertAdjacentHTML('afterend', 
         '<button type="button" class="card__delete button" aria-label="Удалить"></button>');
