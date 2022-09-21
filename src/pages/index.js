@@ -28,6 +28,7 @@ const userInfo = new UserInfo({
 
 const popupEdit = new PopupWithForm('.page__edit-popup', (data) => {
   userInfo.setUserInfo(data.profileName, data.profileInfo);
+  api.setUserInfo(data.profileName, data.profileInfo);
   popupEdit.closePopup();
 });
 
@@ -65,7 +66,6 @@ function enableFormValidation() {
     formValidation.enableValidation();
   });
 }
-
 
 api.getUserInfo()
   .then(data => {
