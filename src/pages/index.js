@@ -7,6 +7,7 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import Section from '../components/Section.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
+import PopupWithDelete from '../components/PopupWithDelete.js';
 
 import {
   config,
@@ -33,20 +34,18 @@ const popupEdit = new PopupWithForm('.page__edit-popup', (data) => {
 });
 
 const popupAdd = new PopupWithForm('.page__add-popup', (data) => {
-  api.addCard(data.cardName, data.cardLink);
-  const elementCard = createCard({
-    name: data.cardName,
-    link: data.cardLink,
-    likes: [],
-    owner: {
-      _id: userInfo.idUser
-    }
-  });
-  listCards.addItem(elementCard);
+  api.addCard(data.cardName, data.cardLink)
+    .then(data => {
+      const elementCard = createCard(data);
+      listCards.addItem(elementCard);
+    })
+    .catch(err => console.log(err));
   popupAdd.closePopup();
 });
 
 const popupCard = new PopupWithImage('.page__card-popup');
+
+const popupDelete = new PopupWithDelete('.page__delete-popup');
 
 const popups = [popupEdit, popupAdd, popupCard];
 
@@ -59,7 +58,11 @@ const api = new Api({
 });
 
 function createCard(dataCard) {
-  const card = new Card(dataCard, '.template-card', popupCard.openPopup, userInfo.idUser);
+  const card = new Card(dataCard, '.template-card', popupCard.openPopup, userInfo.idUser, popupDelete.openPopup, () => {
+    api.deleteCard(card._id);
+    card._deleteCard();
+    popupDelete.closePopup();
+  });
   const elementCard = card.generateCard();
   return elementCard;
 }
@@ -76,6 +79,7 @@ api.getUserInfo()
   .then(data => {
     userInfo.setUserInfo(data.name, data.about);
     userInfo.setUserId(data._id);
+    console.log(data._id);
     userInfo.setUserAvatar(data.avatar);
   })
   .catch(err => console.log(err));

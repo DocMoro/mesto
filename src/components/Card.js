@@ -1,5 +1,5 @@
 export default class Card {
-  constructor(dateCard, selector, handleImageClick, idUser) {
+  constructor(dateCard, selector, handleImageClick, idUser, handleDeleteClick, callBackDeleteCard) {
     this._name = dateCard.name;
     this._link = dateCard.link;
     this._likes = dateCard.likes;
@@ -7,6 +7,9 @@ export default class Card {
     this._selector = selector;
     this._handleImageClick = handleImageClick;
     this._idUser = idUser;
+    this._handleDeleteClick = handleDeleteClick;
+    this._id = dateCard._id;
+    this._callBackDeleteCard = callBackDeleteCard;
   }
 
   generateCard() {
@@ -28,7 +31,7 @@ export default class Card {
   _setEventListeners() {
     this._element.querySelector('.card__button').addEventListener('click', evt => this._toggleLike(evt));
     if (this._flag) {
-      this._element.querySelector('.card__delete').addEventListener('click', () => this._deleteCard());
+      this._element.querySelector('.card__delete').addEventListener('click', () => this._handleDeleteClick(this._callBackDeleteCard));
     }
     this._imageElement.addEventListener('click', () => this._handleImageClick(this._name, this._link));
   }
