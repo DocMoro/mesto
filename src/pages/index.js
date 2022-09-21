@@ -9,7 +9,6 @@ import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 
 import {
-  dateCards,
   config,
   formSelector,
   buttonOpenPopupEdit,
@@ -18,6 +17,8 @@ import {
   buttonOpenPopupAdd
 } from '../components/utils.js';
 
+
+const listCards = new Section(createCard, '.cards');
 
 const userInfo = new UserInfo({
   selectorUserName: '.profile__name',
@@ -31,7 +32,10 @@ const popupEdit = new PopupWithForm('.page__edit-popup', (data) => {
 });
 
 const popupAdd = new PopupWithForm('.page__add-popup', (data) => {
-  const elementCard = createCard(data);
+  const elementCard = createCard({
+    name: data.cardName,
+    link: data.cardLink
+  });
   listCards.addItem(elementCard);
   popupAdd.closePopup();
 });
@@ -39,11 +43,6 @@ const popupAdd = new PopupWithForm('.page__add-popup', (data) => {
 const popupCard = new PopupWithImage('.page__card-popup');
 
 const popups = [popupEdit, popupAdd, popupCard];
-
-const listCards = new Section({
-  data: dateCards,
-  renderer: createCard,
-}, '.cards', );
 
 const api = new Api({
   url: 'https://mesto.nomoreparties.co./v1/cohort-50/',
@@ -68,15 +67,19 @@ function enableFormValidation() {
 }
 
 
-api.getInitialCards()
+api.getUserInfo()
   .then(data => {
     userInfo.setUserInfo(data.name, data.about);
     userInfo.setUserAvatar(data.avatar);
   })
   .catch(err => console.log(err));
 
+api.getInitialCards()
+  .then(data => {
+    listCards.renderItems(data.slice(0, 6));
+  })
+  .catch(err => console.log(err));
 
-listCards.renderItems();
 enableFormValidation();
 buttonOpenPopupEdit.addEventListener('click', () => {
   popupEdit.openPopup();

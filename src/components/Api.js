@@ -4,15 +4,27 @@ export default class Api {
     this._headers = options.headers;
   }
 
-  getInitialCards() {
+  getUserInfo() {
     return fetch(`${this._url}users/me`, {
       headers: this._headers
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      });
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });
+  }
+
+  getInitialCards() {
+    return fetch(`${this._url}cards`, {
+      headers: this._headers
+    })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });
   }
 }
