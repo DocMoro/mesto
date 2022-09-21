@@ -5,8 +5,7 @@ export default class PopupWithDelete extends Popup {
     super(popupSelector);
   }
 
-  openPopup(callBackDeleteCard) {
-    super.openPopup()
+  setSubmitAction(callBackDeleteCard) {
     this.popup.querySelector('.popup__button').addEventListener('click', () => {
       callBackDeleteCard();
     });

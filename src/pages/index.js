@@ -47,7 +47,7 @@ const popupCard = new PopupWithImage('.page__card-popup');
 
 const popupDelete = new PopupWithDelete('.page__delete-popup');
 
-const popups = [popupEdit, popupAdd, popupCard];
+const popups = [popupEdit, popupAdd, popupCard, popupDelete];
 
 const api = new Api({
   url: 'https://mesto.nomoreparties.co./v1/cohort-50/',
@@ -58,10 +58,16 @@ const api = new Api({
 });
 
 function createCard(dataCard) {
-  const card = new Card(dataCard, '.template-card', popupCard.openPopup, userInfo.idUser, popupDelete.openPopup, () => {
-    api.deleteCard(card._id);
-    card._deleteCard();
-    popupDelete.closePopup();
+  const card = new Card(dataCard, '.template-card', popupCard.openPopup, userInfo.idUser, () => {
+    popupDelete.openPopup();
+    popupDelete.setSubmitAction(() => {
+      api.deleteCard(card._id)
+        .then(() => {
+          card.removeCard();
+          popupDelete.closePopup();
+        })
+        .catch((err) => console.log(err));
+    });
   });
   const elementCard = card.generateCard();
   return elementCard;
