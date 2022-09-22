@@ -29,8 +29,10 @@ const userInfo = new UserInfo({
 });
 
 const popupAvatar = new PopupWithForm('.page__avatar-popup', (data) => {
-  userInfo.setUserAvatar(data.avatarLink);
   api.setUserAvatar(data.avatarLink)
+    .then(data => {
+      userInfo.setUserAvatar(data.avatar);
+    })
     .then(() => {
       popupAvatar.closePopup();
     })
@@ -38,8 +40,10 @@ const popupAvatar = new PopupWithForm('.page__avatar-popup', (data) => {
 })
 
 const popupEdit = new PopupWithForm('.page__edit-popup', (data) => {
-  userInfo.setUserInfo(data.profileName, data.profileInfo);
   api.setUserInfo(data.profileName, data.profileInfo)
+    .then(data => {
+      userInfo.setUserInfo(data.name, data.about);
+    })
     .then(() => {
       popupEdit.closePopup();
     })
@@ -107,15 +111,13 @@ function enableFormValidation() {
   });
 }
 
-api.getUserInfo()
+Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(data => {
-    userInfo.setUserInfo(data.name, data.about);
-    userInfo.setUserId(data._id);
-    userInfo.setUserAvatar(data.avatar);
+    userInfo.setUserInfo(data[0].name, data[0].about);
+    userInfo.setUserId(data[0]._id);
+    userInfo.setUserAvatar(data[0].avatar);
+    return data[1];
   })
-  .catch(err => console.log(err));
-
-api.getInitialCards()
   .then(data => {
     listCards.renderItems(data.slice(0, 6));
   })
