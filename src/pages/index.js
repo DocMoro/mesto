@@ -33,10 +33,10 @@ const popupAvatar = new PopupWithForm('.page__avatar-popup', (data) => {
     .then(data => {
       userInfo.setUserAvatar(data.avatar);
     })
-    .then(() => {
+    .catch(err => console.log(err))
+    .finally(() => {
       popupAvatar.closePopup();
-    })
-    .catch(err => console.log(err));
+    });
 })
 
 const popupEdit = new PopupWithForm('.page__edit-popup', (data) => {
@@ -44,10 +44,10 @@ const popupEdit = new PopupWithForm('.page__edit-popup', (data) => {
     .then(data => {
       userInfo.setUserInfo(data.name, data.about);
     })
-    .then(() => {
+    .catch(err => console.log(err))
+    .finally(() => {
       popupEdit.closePopup();
-    })
-    .catch(err => console.log(err));
+    });
 });
 
 const popupAdd = new PopupWithForm('.page__add-popup', (data) => {
@@ -56,10 +56,10 @@ const popupAdd = new PopupWithForm('.page__add-popup', (data) => {
       const elementCard = createCard(data);
       listCards.addItem(elementCard);
     })
-    .then(() => {
+    .catch(err => console.log(err))
+    .finally(() => {
       popupAdd.closePopup();
-    })
-    .catch(err => console.log(err));
+    });
 });
 
 const popupCard = new PopupWithImage('.page__card-popup');
