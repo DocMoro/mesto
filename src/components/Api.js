@@ -29,7 +29,7 @@ export default class Api {
   }
 
   setUserInfo(name, about) {
-    fetch(`${this._url}users/me`, {
+    return fetch(`${this._url}users/me`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({

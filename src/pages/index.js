@@ -7,7 +7,7 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import Section from '../components/Section.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
-import PopupWithDelete from '../components/PopupWithDelete.js';
+import PopupWithConfirmation from '../components/PopupWithConfirmation.js';
 
 import {
   config,
@@ -31,15 +31,19 @@ const userInfo = new UserInfo({
 const popupAvatar = new PopupWithForm('.page__avatar-popup', (data) => {
   userInfo.setUserAvatar(data.avatarLink);
   api.setUserAvatar(data.avatarLink)
+    .then(() => {
+      popupAvatar.closePopup();
+    })
     .catch(err => console.log(err));
-  popupAvatar.closePopup();
 })
 
 const popupEdit = new PopupWithForm('.page__edit-popup', (data) => {
   userInfo.setUserInfo(data.profileName, data.profileInfo);
   api.setUserInfo(data.profileName, data.profileInfo)
+    .then(() => {
+      popupEdit.closePopup();
+    })
     .catch(err => console.log(err));
-  popupEdit.closePopup();
 });
 
 const popupAdd = new PopupWithForm('.page__add-popup', (data) => {
@@ -48,15 +52,17 @@ const popupAdd = new PopupWithForm('.page__add-popup', (data) => {
       const elementCard = createCard(data);
       listCards.addItem(elementCard);
     })
+    .then(() => {
+      popupAdd.closePopup();
+    })
     .catch(err => console.log(err));
-  popupAdd.closePopup();
 });
 
 const popupCard = new PopupWithImage('.page__card-popup');
 
-const popupDelete = new PopupWithDelete('.page__delete-popup');
+const popupConfirmation = new PopupWithConfirmation('.page__delete-popup');
 
-const popups = [popupEdit, popupAdd, popupCard, popupDelete, popupAvatar];
+const popups = [popupEdit, popupAdd, popupCard, popupConfirmation, popupAvatar];
 
 const api = new Api({
   url: 'https://mesto.nomoreparties.co./v1/cohort-50/',
@@ -69,12 +75,12 @@ const api = new Api({
 function createCard(dataCard) {
   const card = new Card(dataCard, '.template-card', popupCard.openPopup, userInfo.idUser, 
   () => {
-    popupDelete.openPopup();
-    popupDelete.setSubmitAction(() => {
+    popupConfirmation.openPopup();
+    popupConfirmation.setSubmitAction(() => {
       api.deleteCard(card._id)
         .then(() => {
           card.removeCard();
-          popupDelete.closePopup();
+          popupConfirmation.closePopup();
         })
         .catch((err) => console.log(err));
     });
@@ -86,7 +92,6 @@ function createCard(dataCard) {
         card._setCounterLike(data.likes);
         card._toggleLike();
         card._setLike();
-        console.log(method);
       })
       .catch(err => console.log(err));
   });
