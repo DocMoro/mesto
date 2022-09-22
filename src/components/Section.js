@@ -15,7 +15,7 @@ export default class Section {
   renderItems(data) {
     data.forEach(item => {
       const elementCard = this._renderer(item);
-      this.addItem(elementCard);
+      this._container.append(elementCard);
     });
   }
 }
