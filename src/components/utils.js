@@ -40,6 +40,7 @@ const config = {
   errorClass: 'popup__error_visible'
 };
 
+const buttonOpenPopupAvatar = document.querySelector('.profile__avatar');
 const buttonOpenPopupEdit = document.querySelector('.profile__edit-button'); 
 const inputNamePopupEdit = document.querySelector('.popup__input_field_name'); 
 const inputInfoPopupEdit = document.querySelector('.popup__input_field_about-me'); 
@@ -53,6 +54,7 @@ export {
   dateCards,
   config,
   formSelector,
+  buttonOpenPopupAvatar,
   buttonOpenPopupEdit,
   inputNamePopupEdit,
   inputInfoPopupEdit,

@@ -1,19 +1,17 @@
-.popup__delete-container {
+.popup__avatar-container {
   position: fixed;
-  top: calc(50vh - 90px);
+  top: calc(50vh - 136px);
   left: 0;
   right: 0;
   margin: 0 auto;
   max-width: 430px;
   width: 100%;
   border-radius: 10px;
-  padding: 34px 36px 36px;
-  box-sizing: border-box;
   background-color: #FFF;
 }
 
 @media screen and (max-width: 526px) {
-  .popup__delete-container {
+  .popup__avatar-container {
     width: calc(100vw - 38px);
   }
 }

@@ -4,4 +4,10 @@
   object-fit: cover;
   width: 120px;
   height: 120px;
+  transition: opacity .5s ease-in-out;
+}
+
+.profile__avatar:hover {
+  cursor: pointer;
+  opacity: .2;
 }

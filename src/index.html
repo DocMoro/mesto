@@ -16,7 +16,9 @@
   <main class="content page__section">
     <section class="profile content__profile">
       <div class="profile__left-column">
-        <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар пользователя">
+        <div class="profile__edit-avatar">
+          <img class="profile__avatar" src="#" alt="Аватар пользователя">
+        </div>
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <button type="button" class="profile__edit-button button" aria-label="Редактировать"></button>
@@ -71,6 +73,17 @@
       <button type="button" class="popup__button-close button" aria-label="Закрыть"></button>
       <h2 class="popup__delete-title">Вы уверены?</h2>
       <button type="button" class="popup__button button">Да</button>
+    </div>
+  </div>
+  <div class="popup page__avatar-popup">
+    <div class="popup__avatar-container">
+      <button type="button" class="popup__button-close button" aria-label="Закрыть"></button>
+      <form name="avatar-form" class="popup__form">
+        <h2 class="popup__avatar-title">Обновить аватар</h2>
+        <input name="avatarLink" type="url" class="popup__input " placeholder="Ссылка на картинку" required>
+        <span class="popup__input-error avatarLink-error"></span>
+        <button type="submit" class="popup__button button">Сохранить</button>
+      </form>
     </div>
   </div>
   <template class="template-card">

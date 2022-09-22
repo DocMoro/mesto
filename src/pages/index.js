@@ -15,7 +15,8 @@ import {
   buttonOpenPopupEdit,
   inputNamePopupEdit,
   inputInfoPopupEdit,
-  buttonOpenPopupAdd
+  buttonOpenPopupAdd,
+  buttonOpenPopupAvatar
 } from '../components/utils.js';
 
 
@@ -27,9 +28,17 @@ const userInfo = new UserInfo({
   selectorUserAvatar: '.profile__avatar'
 });
 
+const popupAvatar = new PopupWithForm('.page__avatar-popup', (data) => {
+  userInfo.setUserAvatar(data.avatarLink);
+  api.setUserAvatar(data.avatarLink)
+    .catch(err => console.log(err));
+  popupAvatar.closePopup();
+})
+
 const popupEdit = new PopupWithForm('.page__edit-popup', (data) => {
   userInfo.setUserInfo(data.profileName, data.profileInfo);
-  api.setUserInfo(data.profileName, data.profileInfo);
+  api.setUserInfo(data.profileName, data.profileInfo)
+    .catch(err => console.log(err));
   popupEdit.closePopup();
 });
 
@@ -47,7 +56,7 @@ const popupCard = new PopupWithImage('.page__card-popup');
 
 const popupDelete = new PopupWithDelete('.page__delete-popup');
 
-const popups = [popupEdit, popupAdd, popupCard, popupDelete];
+const popups = [popupEdit, popupAdd, popupCard, popupDelete, popupAvatar];
 
 const api = new Api({
   url: 'https://mesto.nomoreparties.co./v1/cohort-50/',
@@ -113,6 +122,7 @@ buttonOpenPopupEdit.addEventListener('click', () => {
   ({name: inputNamePopupEdit.value, info: inputInfoPopupEdit.value} = userInfo.getUserInfo());
 });
 buttonOpenPopupAdd.addEventListener('click', popupAdd.openPopup);
+buttonOpenPopupAvatar.addEventListener('click', popupAvatar.openPopup);
 
 popups.forEach((popupObj) => {
   popupObj.setEventListeners();
