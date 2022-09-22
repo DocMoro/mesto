@@ -74,4 +74,17 @@ export default class Api {
       return Promise.reject(`Ошибка: ${res.status}`);
     });
   }
+
+  likeCard(id, method) {
+    return fetch(`${this._url}cards/${id}/likes`, {
+      method: method,
+      headers: this._headers,
+    })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });
+  }
 }

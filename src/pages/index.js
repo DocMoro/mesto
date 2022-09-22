@@ -58,7 +58,8 @@ const api = new Api({
 });
 
 function createCard(dataCard) {
-  const card = new Card(dataCard, '.template-card', popupCard.openPopup, userInfo.idUser, () => {
+  const card = new Card(dataCard, '.template-card', popupCard.openPopup, userInfo.idUser, 
+  () => {
     popupDelete.openPopup();
     popupDelete.setSubmitAction(() => {
       api.deleteCard(card._id)
@@ -68,6 +69,17 @@ function createCard(dataCard) {
         })
         .catch((err) => console.log(err));
     });
+  },
+  () => {
+    const method = card._isLiked ? 'DELETE' : 'PUT';
+    api.likeCard(card._id, method)
+      .then(data => {
+        card._setCounterLike(data.likes);
+        card._toggleLike();
+        card._setLike();
+        console.log(method);
+      })
+      .catch(err => console.log(err));
   });
   const elementCard = card.generateCard();
   return elementCard;
@@ -85,7 +97,6 @@ api.getUserInfo()
   .then(data => {
     userInfo.setUserInfo(data.name, data.about);
     userInfo.setUserId(data._id);
-    console.log(data._id);
     userInfo.setUserAvatar(data.avatar);
   })
   .catch(err => console.log(err));
