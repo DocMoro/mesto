@@ -33,9 +33,12 @@ const popupAvatar = new PopupWithForm('.page__avatar-popup', (data) => {
     .then(data => {
       userInfo.setUserAvatar(data.avatar);
     })
+    .then(() => {
+      popupAvatar.closePopup();
+    })
     .catch(err => console.log(err))
     .finally(() => {
-      popupAvatar.closePopup();
+      popupAvatar.resetButton();
     });
 })
 
@@ -44,9 +47,12 @@ const popupEdit = new PopupWithForm('.page__edit-popup', (data) => {
     .then(data => {
       userInfo.setUserInfo(data.name, data.about);
     })
+    .then(() => {
+      popupEdit.closePopup();
+    })
     .catch(err => console.log(err))
     .finally(() => {
-      popupEdit.closePopup();
+      popupEdit.resetButton();
     });
 });
 
@@ -56,9 +62,12 @@ const popupAdd = new PopupWithForm('.page__add-popup', (data) => {
       const elementCard = createCard(data);
       listCards.addItem(elementCard);
     })
+    .then(() => {
+      popupAdd.closePopup();
+    })
     .catch(err => console.log(err))
     .finally(() => {
-      popupAdd.closePopup();
+      popupAdd.resetButton();
     });
 });
 
@@ -77,7 +86,7 @@ const api = new Api({
 });
 
 function createCard(dataCard) {
-  const card = new Card(dataCard, '.template-card', popupCard.openPopup, userInfo.idUser, 
+  const card = new Card(dataCard, '.template-card', popupCard.openPopup, userInfo.getUserId(), 
   () => {
     popupConfirmation.openPopup();
     popupConfirmation.setSubmitAction(() => {
@@ -113,13 +122,11 @@ function enableFormValidation() {
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(data => {
-    userInfo.setUserInfo(data[0].name, data[0].about);
-    userInfo.setUserId(data[0]._id);
-    userInfo.setUserAvatar(data[0].avatar);
-    return data[1];
-  })
-  .then(data => {
-    listCards.renderItems(data.slice(0, 6));
+    const [dataUser, dataCards] = data;
+    userInfo.setUserInfo(dataUser.name, dataUser.about);
+    userInfo.setUserId(dataUser._id);
+    userInfo.setUserAvatar(dataUser.avatar);
+    listCards.renderItems(dataCards.slice(0, 6));
   })
   .catch(err => console.log(err));
 

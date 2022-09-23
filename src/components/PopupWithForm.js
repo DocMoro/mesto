@@ -11,7 +11,6 @@ export default class PopupWithForm extends Popup {
 
   openPopup() {
     this._formPopup.reset();
-    this._submitButton.textContent = 'Сохранить';
     super.openPopup()
   }
 
@@ -30,5 +29,9 @@ export default class PopupWithForm extends Popup {
       dataInputs[inputElement.name] = inputElement.value;
     });
     return dataInputs;
+  }
+
+  resetButton() {
+    this._submitButton.textContent = 'Сохранить';
   }
 }
