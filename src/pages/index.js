@@ -121,8 +121,7 @@ function enableFormValidation() {
 }
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
-  .then(data => {
-    const [dataUser, dataCards] = data;
+  .then(([dataUser, dataCards])  => {
     userInfo.setUserInfo(dataUser.name, dataUser.about);
     userInfo.setUserId(dataUser._id);
     userInfo.setUserAvatar(dataUser.avatar);
