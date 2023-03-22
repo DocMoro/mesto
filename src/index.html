@@ -13,7 +13,7 @@
   <header class="header">
     <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="Логотип место">
   </header>
-  <!--<main class="content page__section">
+  <main class="content page__section">
     <section class="profile content__profile">
       <div class="profile__left-column">
         <div class="profile__edit-avatar">
@@ -34,7 +34,7 @@
   </main>
   <footer class="footer page__section ">
     <p class="footer__copyright">© 2022 Mesto Russia</p>
-  </footer>-->
+  </footer>
   <div class="popup page__edit-popup">
     <div class="popup__container">
       <button type="button" class="popup__button-close button" aria-label="Закрыть"></button>
@@ -85,21 +85,6 @@
         <button type="submit" class="popup__button button">Сохранить</button>
       </form>
     </div>
-  </div>
-  <div class="auth">
-    <form name="register-form" class="auth__form">
-      <div class="auth__up">
-        <h2 class="auth__title">Регистрация</h2>
-        <input name="registerEmail" type="email" class="auth__input" placeholder="Email" required>
-        <span class="auth__input-error registerEmail-error"></span>
-        <input name="registerPassword" type="password" class="auth__input" placeholder="Пароль" required>
-        <span class="auth__input-error registerPassword-error"></span>
-      </div>
-      <div class="auth__dn">
-        <button type="submit" class="auth__button">Зарегестрироваться</button>
-        <a class="auth__link button">Ужу зарегестрированы? Войти</a>
-      </div>
-    </form>
   </div>
   <template class="template-card">
     <li class="card">
